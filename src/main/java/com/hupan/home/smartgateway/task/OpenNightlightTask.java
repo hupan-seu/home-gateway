@@ -9,6 +9,9 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class OpenNightlightTask {
     private static final int DELAY_SECONDS = 90;
     private static String ON_URL = "http://192.168.88.103/v1/switch1/on";
@@ -56,6 +59,15 @@ public class OpenNightlightTask {
         return true;
     }
 
+    private boolean isRightTime(){
+        Calendar calendar = Calendar.getInstance();
+        int hours = calendar.get(Calendar.HOUR_OF_DAY);
+        if((hours >= 21)||((hours >= 0)&&(hours <= 2))){
+            return true;
+        } else {
+            return false;
+        }
+    }
     /**
      *
      */
@@ -67,6 +79,11 @@ public class OpenNightlightTask {
             if((nowTime - lastActionTime) < 1000){
                 return;
             }
+
+            if(!isRightTime()){
+                return;
+            }
+
             if(taskState != 0){
                 return;
             }
