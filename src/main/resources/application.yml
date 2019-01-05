@@ -1,0 +1,11 @@
+
+smartgateway:
+  hardware:
+    debug-mode: false
+  mqtt:
+    server:
+      url: "tcp://139.199.209.220:1883"
+    client:
+      client-id: "123456"
+      username: "hupan-raspberry"
+      password: "sN9gE1zQsEd8S1Iq"
