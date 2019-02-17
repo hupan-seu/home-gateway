@@ -16,8 +16,6 @@ import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
 
-import java.util.UUID;
-
 @Configuration
 public class MqttClientConfig {
     @Value("${smartgateway.mqtt.server.url}")

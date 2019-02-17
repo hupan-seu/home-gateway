@@ -7,7 +7,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -66,7 +65,7 @@ public class NightLightServiceImpl implements NightLightService {
         return true;
     }
 
-    // 定时1秒执行一次
+    // 定时5秒执行一次
     @Scheduled(cron = "0/5 * * * * ?")
     private void checkPeriod(){
         if(!isWaitTaskOn){
