@@ -1,0 +1,11 @@
+
+smartgateway:
+  hardware:
+    debug-mode: true
+  mqtt:
+    server:
+      url: "tcp://139.199.209.220"
+    client:
+      client-id: "123456"
+      username: "122"
+      password: "hahahha"
