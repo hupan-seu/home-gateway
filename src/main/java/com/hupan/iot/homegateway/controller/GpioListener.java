@@ -1,7 +1,7 @@
-package com.hupan.home.smartgateway.hardware;
+package com.hupan.iot.homegateway.controller;
 
-import com.hupan.home.smartgateway.entity.LightState;
-import com.hupan.home.smartgateway.service.NightLightService;
+import com.hupan.iot.homegateway.entity.LightState;
+import com.hupan.iot.homegateway.service.NightLightService;
 import com.pi4j.io.gpio.*;
 import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
 import com.pi4j.io.gpio.event.GpioPinListenerDigital;
@@ -16,15 +16,15 @@ import java.util.Calendar;
 @Slf4j
 @Component
 public class GpioListener {
-    private static int HARDWARE_FILTER_MS = 1000;  // 硬件消抖时间
-    private static int LIGHT_ON_TIMES = 90;  // 灯点亮持续时间，单位：秒
+    private final int HARDWARE_FILTER_MS = 1000;  // 硬件消抖时间
+    private final int LIGHT_ON_TIMES = 90;  // 灯点亮持续时间，单位：秒
 
 
     private GpioController ioController;
     private GpioPinDigitalInput ioLightSensor;  // 光敏电阻输入
     private long lastActionTime = 0;  // 上次传感器事件时间，用于消抖
 
-    @Value("${smartgateway.hardware.debug-mode}")
+    @Value("${homegateway.hardware.debug-mode}")
     private boolean debugMode;  // 测试模式下不关联实际硬件，保证在非树莓派环境上可运行
 
     @Autowired
@@ -63,7 +63,7 @@ public class GpioListener {
         // 点亮一小会儿
         if(toDark){
             log.info("light on");
-            nightLightService.changeLightState(LightState.LIGHT_ON_A_WHILE, LIGHT_ON_TIMES);
+            nightLightService.changeState(LightState.LIGHT_ON_A_WHILE, LIGHT_ON_TIMES);
         }
     }
 

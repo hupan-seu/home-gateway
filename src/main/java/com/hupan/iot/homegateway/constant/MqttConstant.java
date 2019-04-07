@@ -1,4 +1,4 @@
-package com.hupan.home.smartgateway.constant;
+package com.hupan.iot.homegateway.constant;
 
 public class MqttConstant {
     public static String TOPIC_SUBSCRIBE = "home/hupan/#";

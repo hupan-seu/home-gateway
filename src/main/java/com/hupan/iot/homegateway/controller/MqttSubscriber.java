@@ -1,8 +1,8 @@
-package com.hupan.home.smartgateway.mqtt;
+package com.hupan.iot.homegateway.controller;
 
-import com.hupan.home.smartgateway.constant.MqttConstant;
-import com.hupan.home.smartgateway.entity.LightState;
-import com.hupan.home.smartgateway.service.NightLightService;
+import com.hupan.iot.homegateway.constant.MqttConstant;
+import com.hupan.iot.homegateway.entity.LightState;
+import com.hupan.iot.homegateway.service.NightLightService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.annotation.ServiceActivator;
@@ -12,7 +12,8 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class MqttMessageListener {
+public class MqttSubscriber {
+
     @Autowired
     private NightLightService nightLightService;
 
@@ -23,9 +24,9 @@ public class MqttMessageListener {
         log.info("mqtt rec, topic:{}, payload:{}", topic, payload);
         if(topic.equals(MqttConstant.TOPIC_SWITCH1)){
             if(payload.equals("{\"state\":\"on\"}")){
-                nightLightService.changeLightState(LightState.LIGHT_ON, 0);
+                nightLightService.changeState(LightState.LIGHT_ON, 0);
             } else if(payload.equals("{\"state\":\"off\"}")){
-                nightLightService.changeLightState(LightState.LIGHT_OFF, 0);
+                nightLightService.changeState(LightState.LIGHT_OFF, 0);
             }
         }
     }

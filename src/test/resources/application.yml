@@ -1,5 +1,5 @@
 
-smartgateway:
+homegateway:
   hardware:
     debug-mode: true
   mqtt:

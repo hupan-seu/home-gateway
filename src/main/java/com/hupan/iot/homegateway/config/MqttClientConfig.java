@@ -1,33 +1,30 @@
-package com.hupan.home.smartgateway.config;
+package com.hupan.iot.homegateway.config;
 
-import com.hupan.home.smartgateway.constant.MqttConstant;
+import com.hupan.iot.homegateway.constant.MqttConstant;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.core.MessageProducer;
 import org.springframework.integration.mqtt.core.DefaultMqttPahoClientFactory;
 import org.springframework.integration.mqtt.core.MqttPahoClientFactory;
 import org.springframework.integration.mqtt.inbound.MqttPahoMessageDrivenChannelAdapter;
-import org.springframework.integration.mqtt.outbound.MqttPahoMessageHandler;
 import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
 import org.springframework.messaging.MessageChannel;
-import org.springframework.messaging.MessageHandler;
+
+import java.util.UUID;
 
 @Configuration
 public class MqttClientConfig {
-    @Value("${smartgateway.mqtt.server.url}")
+
+    @Value("${homegateway.mqtt.server.url}")
     private String serverUrl;
 
-    @Value("${smartgateway.mqtt.client.client-id}")
-    private String clientId;
-
-    @Value("${smartgateway.mqtt.client.username}")
+    @Value("${homegateway.mqtt.client.username}")
     private String username;
 
-    @Value("${smartgateway.mqtt.client.password}")
+    @Value("${homegateway.mqtt.client.password}")
     private String password;
 
     /**
@@ -78,7 +75,7 @@ public class MqttClientConfig {
     @Bean
     public MessageProducer inbound() {
         MqttPahoMessageDrivenChannelAdapter adapter =
-                new MqttPahoMessageDrivenChannelAdapter(clientId + "2", mqttClientFactory(), MqttConstant.TOPIC_SUBSCRIBE);
+                new MqttPahoMessageDrivenChannelAdapter(UUID.randomUUID().toString(), mqttClientFactory(), MqttConstant.TOPIC_SUBSCRIBE);
         adapter.setConverter(new DefaultPahoMessageConverter());
         adapter.setQos(1);
         adapter.setOutputChannel(mqttInputChannel());

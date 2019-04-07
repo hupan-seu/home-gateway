@@ -1,14 +1,4 @@
-## Home Gateway [English](doc/readme_en.md)
-
-这是一个运行在树莓派上的网关，用于智能家居控制。
-
-#### 系统架构 
-
-#### 本地控制
-
-#### 远程控制
-
-#### 联动场景
+### PLATFORM
 raspberry  
 with a light sensor in raspberry digital IO input
 

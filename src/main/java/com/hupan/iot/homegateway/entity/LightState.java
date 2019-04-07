@@ -1,4 +1,4 @@
-package com.hupan.home.smartgateway.entity;
+package com.hupan.iot.homegateway.entity;
 
 public enum LightState {
     LIGHT_ON,       // 点亮
