@@ -19,11 +19,11 @@ public class NightLightServiceImpl implements NightLightService {
     private final String OFF_URL = SERVER_ADDR + "/v1/switch1/off";
     private final int DEFAULT_CONTINUE_SECONDS = 5 * 60;
     private final int MAX_CONTINUE_SECONDS = 24 * 60 * 60;
+    private final int TOO_CLOSE_TIME = 5 * 1000;
 
     private boolean lightOn = false;
-//    private boolean isWaitTaskOn = false;
     private boolean interrupted = true;
-//    private long waitStopTime = 0;
+    private long lastWaitFinishTime = 0;
 
     @PostConstruct
     public void init(){
@@ -48,15 +48,15 @@ public class NightLightServiceImpl implements NightLightService {
 
         if(lightState == LightState.LIGHT_ON){
             interrupted = true;
-            lightOn = true;
             postHttpRequest(ON_URL);
+            lightOn = true;
         } else if(lightState == LightState.LIGHT_OFF){
             interrupted = true;
-            lightOn = false;
             postHttpRequest(OFF_URL);
-        } else if ((lightState == LightState.LIGHT_ON_A_WHILE)&&(!lightOn)){
-            lightOn = true;
+            lightOn = false;
+        } else if ((lightState == LightState.LIGHT_ON_A_WHILE)&&(!lightOn)&&(!tooClose())){
             postHttpRequest(ON_URL);
+            lightOn = true;
 
             int seconds = ((continuedSeconds > 0)&&(continuedSeconds <= MAX_CONTINUE_SECONDS))?continuedSeconds:DEFAULT_CONTINUE_SECONDS;
             long stopTime = System.currentTimeMillis() + seconds * 1000;
@@ -65,7 +65,7 @@ public class NightLightServiceImpl implements NightLightService {
         }
     }
 
-    private boolean postHttpRequest(String url){
+    private void postHttpRequest(String url){
         try{
             CloseableHttpClient httpClient = HttpClients.createDefault();
             HttpPost httpPost = new HttpPost(url);
@@ -73,9 +73,16 @@ public class NightLightServiceImpl implements NightLightService {
             httpClient.close();
         } catch (Exception e){
             log.error("exception when post http: {}, {}", e.getMessage(), e.getStackTrace());
+            // throw exception
+        }
+    }
+
+    private boolean tooClose(){
+        if(System.currentTimeMillis() - lastWaitFinishTime <= TOO_CLOSE_TIME){
+            return true;
+        }else {
             return false;
         }
-        return true;
     }
 
     private void waitOff(long stopTime){
@@ -89,6 +96,7 @@ public class NightLightServiceImpl implements NightLightService {
                 }
             }
             changeLightState(LightState.LIGHT_OFF, 0, true);
+            lastWaitFinishTime = System.currentTimeMillis();
         }).run();
     }
 }
