@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -14,12 +15,14 @@ import javax.annotation.PostConstruct;
 @Slf4j
 @Service
 public class NightLightServiceImpl implements NightLightService {
-    private final String SERVER_ADDR = "http://192.168.88.103";
-    private final String ON_URL = SERVER_ADDR + "/v1/switch1/on";
-    private final String OFF_URL = SERVER_ADDR + "/v1/switch1/off";
     private final int DEFAULT_CONTINUE_SECONDS = 5 * 60;
     private final int MAX_CONTINUE_SECONDS = 24 * 60 * 60;
     private final int TOO_CLOSE_TIME = 5 * 1000;
+
+    @Value("homegateway.switch.url")
+    private String serverAddr;
+    private String onUrl;
+    private String offUrl;
 
     private boolean lightOn = false;
     private boolean interrupted = true;
@@ -27,6 +30,9 @@ public class NightLightServiceImpl implements NightLightService {
 
     @PostConstruct
     public void init(){
+        onUrl = serverAddr + "/v1/switch1/on";
+        offUrl = serverAddr + "/v1/switch1/off";
+
         // 获取小夜灯当前状态
     }
 
@@ -48,14 +54,14 @@ public class NightLightServiceImpl implements NightLightService {
 
         if(lightState == LightState.LIGHT_ON){
             interrupted = true;
-            postHttpRequest(ON_URL);
+            postHttpRequest(onUrl);
             lightOn = true;
         } else if(lightState == LightState.LIGHT_OFF){
             interrupted = true;
-            postHttpRequest(OFF_URL);
+            postHttpRequest(offUrl);
             lightOn = false;
         } else if ((lightState == LightState.LIGHT_ON_A_WHILE)&&(!lightOn)&&(!tooClose())){
-            postHttpRequest(ON_URL);
+            postHttpRequest(onUrl);
             lightOn = true;
 
             int seconds = ((continuedSeconds > 0)&&(continuedSeconds <= MAX_CONTINUE_SECONDS))?continuedSeconds:DEFAULT_CONTINUE_SECONDS;

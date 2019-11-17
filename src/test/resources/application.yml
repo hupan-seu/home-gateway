@@ -9,3 +9,5 @@ homegateway:
       client-id: "123456"
       username: "122"
       password: "hahahha"
+  switch:
+    url: "http://192.168.88.135"
