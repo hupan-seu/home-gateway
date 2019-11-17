@@ -19,7 +19,7 @@ public class NightLightServiceImpl implements NightLightService {
     private final int MAX_CONTINUE_SECONDS = 24 * 60 * 60;
     private final int TOO_CLOSE_TIME = 5 * 1000;
 
-    @Value("homegateway.switch.url")
+    @Value("${homegateway.switch.url}")
     private String serverAddr;
     private String onUrl;
     private String offUrl;
