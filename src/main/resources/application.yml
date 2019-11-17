@@ -4,9 +4,12 @@ homegateway:
     debug-mode: true
   mqtt:
     server:
-      url: "tcp://139.199.209.220:1883"
+      url: "tcp://host:1883"
     client:
       username: "hupan-raspberry"
       password: "password"
+  switch:
+    url: "http://host"
+
 server:
   port: 8090
