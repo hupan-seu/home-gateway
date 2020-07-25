@@ -1,4 +1,3 @@
-
 homegateway:
   hardware:
     debug-mode: true

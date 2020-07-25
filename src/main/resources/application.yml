@@ -1,15 +1,13 @@
-
 homegateway:
-  hardware:
-    debug-mode: true
+  hardware: false
   mqtt:
     server:
-      url: "tcp://host:1883"
+      url: "tcp://localhost:1883"
     client:
       username: "hupan-raspberry"
       password: "password"
   switch:
-    url: "http://host"
+    url: "http://localhost"
 
 server:
   port: 8090

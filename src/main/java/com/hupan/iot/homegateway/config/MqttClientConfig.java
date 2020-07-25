@@ -29,10 +29,10 @@ public class MqttClientConfig {
 
     /**
      * mqtt 连接配置
-     * */
+     */
     @Bean
-    public MqttConnectOptions getMqttConnectOptions(){
-        MqttConnectOptions mqttConnectOptions=new MqttConnectOptions();
+    public MqttConnectOptions getMqttConnectOptions() {
+        MqttConnectOptions mqttConnectOptions = new MqttConnectOptions();
         mqttConnectOptions.setUserName(username);
         mqttConnectOptions.setPassword(password.toCharArray());
         mqttConnectOptions.setServerURIs(new String[]{serverUrl});
@@ -66,7 +66,7 @@ public class MqttClientConfig {
 
     /**
      * mqtt 接收通道
-     * */
+     */
     @Bean
     public MessageChannel mqttInputChannel() {
         return new DirectChannel();

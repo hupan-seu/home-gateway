@@ -1,7 +1,6 @@
 package com.hupan.iot.homegateway.mqtt;
 
 import com.hupan.iot.homegateway.StartApplication;
-import com.hupan.iot.homegateway.entity.LightState;
 import com.hupan.iot.homegateway.service.NightLightService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,7 +16,7 @@ public class MqttClientTest {
     private NightLightService nightLightService;
 
     @Test
-    public void testMqttPublish(){
+    public void testMqttPublish() {
         System.out.println("ahahah");
 //        nightLightService.changeLightState(LightState.LIGHT_ON_A_WHILE, 60);
         //mqttPublishClient.sendToMqtt("hahah", 1, "hshshshs");

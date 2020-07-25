@@ -6,7 +6,7 @@
 
     <groupId>com.hupan.iot</groupId>
     <artifactId>home-gateway</artifactId>
-    <version>1.2.1</version>
+    <version>1.2.2</version>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -23,7 +23,8 @@
         <!-- spring -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter</artifactId>
+            <!--<artifactId>spring-boot-starter-web</artifactId>-->
         </dependency>
 
         <!--log-->
@@ -44,7 +45,7 @@
         <dependency>
             <groupId>com.pi4j</groupId>
             <artifactId>pi4j-core</artifactId>
-            <version>1.2-SNAPSHOT</version>
+            <version>1.2</version>
         </dependency>
 
         <!-- mqtt -->
@@ -83,18 +84,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <!--<repositories>-->
-        <!--<repository>-->
-            <!--<id>oss-snapshots-repo</id>-->
-            <!--<name>Sonatype OSS Maven Repository</name>-->
-            <!--<url>https://oss.sonatype.org/content/groups/public</url>-->
-            <!--<snapshots>-->
-                <!--<enabled>true</enabled>-->
-                <!--<updatePolicy>always</updatePolicy>-->
-            <!--</snapshots>-->
-        <!--</repository>-->
-    <!--</repositories>-->
 
     <build>
         <plugins>
