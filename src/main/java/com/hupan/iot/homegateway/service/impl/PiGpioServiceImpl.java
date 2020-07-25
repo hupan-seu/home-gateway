@@ -27,9 +27,6 @@ public class PiGpioServiceImpl implements PiGpioService {
 
     @PostConstruct
     public void init() {
-        gpioController = GpioFactory.getInstance();
-        sensorInput = gpioController.provisionDigitalInputPin(RaspiPin.GPIO_01);      // 光敏电阻输入
-        littleOutput = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_02);
         sensorInput.addListener((GpioPinListenerDigital) this::handleSensorEvent);
         log.info("listen gpio pin");
     }
